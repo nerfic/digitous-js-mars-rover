@@ -70,11 +70,11 @@ function moveForward(rover) {
 
     if (rover.direction === "N") {
         rover.y -= 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.y < 0 || rover.y > 9) {
             console.log("Erreur nous sortons de la grille")
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
         }
     } else if (rover.direction === "E") {
         rover.x += 1;
@@ -161,22 +161,14 @@ function roverGame() {
                 turnRight(rover);
                 console.log(rover)
             } else if (playerResult.charAt(i).toUpperCase() === "F") {
-
-                if (rover.x < 0 || rover.x > 9 || rover.y < 0 || rover.y > 9) {
-                    console.log("Sortie de grille");
-                } else {
-                    moveForward(rover);
-                    console.log(rover)
-                }
-            } else if (playerResult.charAt(i).toUpperCase() === "B") {
-
-                if (rover.x < 0 || rover.x > 9 || rover.y < 0 || rover.y > 9) {
-                    console.log("Sortie de grille");
-                } else {
-                    moveBackward(rover);
-                    console.log(rover)
-                }
-            } else if (playerResult.charAt(i) === " ") {
+                moveForward(rover);
+                console.log(rover)
+            }
+            else if (playerResult.charAt(i).toUpperCase() === "B") {
+                moveBackward(rover);
+                console.log(rover)
+            }
+            else if (playerResult.charAt(i) === " ") {
                 // vide ?
             }
             else {
