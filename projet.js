@@ -1,11 +1,10 @@
-// Gérer minuscule / Majuscule = La lettre que l'user nous envoie on la compare en tant que lowerCase result.toUpperCase === "n"
-
-
-
+// ←
+// ↓
+// ↑
+// →
 var prompt = require("prompt");
 
 var grid = [
-    ["R", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -14,17 +13,21 @@ var grid = [
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", "R"]
 ];
 
 
 
 var rover = {
-    direction: "W",
-    x: 0,
-    y: 0,
-    travelLog: []
+    direction: "N",
+    x: 9,
+    y: 9,
+    travelLog: [],
+    //pointer: "↑"
 }
+
+
 
 function turnLeft(rover) {
     if (rover.direction === "N") {
@@ -62,64 +65,72 @@ function turnRight(rover) {
 }
 
 function moveForward(rover) {
+    var lastY = rover.y
+    var lastX = rover.x
     if (rover.direction === "N") {
-        rover.y += 1;
+        rover.y -= 1;
+        grid[rover.x][rover.y] = grid[lastX][lastY]
+        grid[lastX][lastY] = " "
+        if (rover.y < 0 || rover.y > 9) {
+            console.log("Erreur nous sortons de la grille")
+        }
     } else if (rover.direction === "E") {
         rover.x += 1;
+        grid[rover.x][rover.y] = grid[lastX][lastY]
+        grid[lastX][lastY] = " "
+        if (rover.x < 0 || rover.x > 9) {
+            console.log("Erreur nous sortons de la grille")
+        }
     } else if (rover.direction === "S") {
-        rover.y -= 1;
+        rover.y += 1;
+        grid[rover.x][rover.y] = grid[lastX][lastY]
+        grid[lastX][lastY] = " "
+        if (rover.y < 0 || rover.y > 9) {
+            console.log("Erreur nous sortons de la grille")
+        }
     } else if (rover.direction === "W") {
         rover.x -= 1;
+        grid[rover.x][rover.y] = grid[lastX][lastY]
+        grid[lastX][lastY] = " "
+        if (rover.x < 0 || rover.x > 9) {
+            console.log("Erreur nous sortons de la grille")
+        }
     }
 }
 
-turnRight(rover)
-moveForward(rover)
-turnRight(rover)
-moveForward(rover)
-console.log(rover)
 
+function roverGame() {
 
+    var playerResult = grid[rover.x][rover.y];
 
-// console.log("Départ du rover \n", grid.join('\n') + '\n\n');
+    prompt.start();
+    prompt.get(['moove'], function (err, result) {
 
-// newposition = position ancienne
-// poisition ancienne = ' '
+        playerResult = result.moove;
 
-// grid[0][1] = grid[0][0]
-// grid[0][0] = ' '
-// console.log("Position suivante\n", grid.join('\n'))
+        var i = 0;
 
-// grid[1][1] = grid[0][1]
-// grid[0][1] = ' '
-// console.log("Position suivante\n", grid.join('\n'))
+        while (i < playerResult.length) {
+            if (playerResult.charAt(i).toUpperCase() === "L") {
+                turnLeft(rover);
+                console.log(rover)
+            } else if (playerResult.charAt(i).toUpperCase() === "R") {
+                turnRight(rover);
+                console.log(rover)
+            } else if (playerResult.charAt(i).toUpperCase() === "F") {
+                moveForward(rover);
+                console.log(rover)
+            } else {
+                console.log("Erreur ce n'est pas un bon argument !")
+            }
+            i++;
+        }
+        console.log(grid.join('\n'))
+    });
+}
 
-// function roverGame() {
+roverGame()
 
-//     var playerResult = grid[0][0];
-
-//     prompt.start();
-//     prompt.get(['moove'], function (err, result) {
-
-//         playerResult = result.moove;
-
-//         var i = 0;
-
-//         while (i < playerResult.length) {
-//             if (playerResult.charAt(i) === "L") {
-//                 turnLeft(rover);
-//             } else if (playerResult.charAt(i) === "R") {
-//                 turnRight(rover);
-//             } else if (playerResult.charAt(i) === "F") {
-//                 moveForward(rover);
-//             }
-//             i++;
-//         }
-//         console.log(grid.join('\n'))
-//     });
-// }
-
-// roverGame()
 
 // newposition = position ancienne
 // poisition ancienne = ' '
