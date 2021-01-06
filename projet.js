@@ -2,32 +2,33 @@
 // ↓
 // ↑
 // →
+// Pblm de hors zone
+// moveBackward
+// Rajouter le cas d'erreur pour un espace dans le prompt
+// Afficher la direction dans la grille
+
 var prompt = require("prompt");
-
-var grid = [
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-    [" ", " ", " ", " ", " ", " ", " ", " ", " ", "R"]
-];
-
-
 
 var rover = {
     direction: "N",
-    x: 9,
-    y: 9,
+    x: 0,
+    y: 0,
     travelLog: [],
     //pointer: "↑"
 }
 
-
+var grid = [
+    [rover.direction, " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
+];
 
 function turnLeft(rover) {
     if (rover.direction === "N") {
@@ -65,39 +66,43 @@ function turnRight(rover) {
 }
 
 function moveForward(rover) {
-    var lastY = rover.y
     var lastX = rover.x
+    var lastY = rover.y
+
     if (rover.direction === "N") {
         rover.y -= 1;
-        grid[rover.x][rover.y] = grid[lastX][lastY]
-        grid[lastX][lastY] = " "
+        grid[rover.y][rover.x] = grid[lastY][lastX];
+        grid[lastY][lastX] = " ";
+
         if (rover.y < 0 || rover.y > 9) {
             console.log("Erreur nous sortons de la grille")
         }
     } else if (rover.direction === "E") {
         rover.x += 1;
-        grid[rover.x][rover.y] = grid[lastX][lastY]
-        grid[lastX][lastY] = " "
+        grid[rover.y][rover.x] = grid[lastY][lastX];
+        grid[lastY][lastX] = " ";
+
         if (rover.x < 0 || rover.x > 9) {
             console.log("Erreur nous sortons de la grille")
         }
     } else if (rover.direction === "S") {
         rover.y += 1;
-        grid[rover.x][rover.y] = grid[lastX][lastY]
-        grid[lastX][lastY] = " "
+        grid[rover.y][rover.x] = grid[lastY][lastX];
+        grid[lastY][lastX] = " ";
+
         if (rover.y < 0 || rover.y > 9) {
             console.log("Erreur nous sortons de la grille")
         }
     } else if (rover.direction === "W") {
         rover.x -= 1;
-        grid[rover.x][rover.y] = grid[lastX][lastY]
-        grid[lastX][lastY] = " "
+        grid[rover.y][rover.x] = grid[lastY][lastX];
+        grid[lastY][lastX] = " ";
+
         if (rover.x < 0 || rover.x > 9) {
             console.log("Erreur nous sortons de la grille")
         }
     }
 }
-
 
 function roverGame() {
 
@@ -118,8 +123,13 @@ function roverGame() {
                 turnRight(rover);
                 console.log(rover)
             } else if (playerResult.charAt(i).toUpperCase() === "F") {
-                moveForward(rover);
-                console.log(rover)
+
+                if (rover.x < 0 || rover.x > 9 || rover.y < 0 || rover.y > 9) {
+                    console.log("Sortie de grille");
+                } else {
+                    moveForward(rover);
+                    console.log(rover)
+                }
             } else {
                 console.log("Erreur ce n'est pas un bon argument !")
             }
