@@ -1,0 +1,22 @@
+{
+  "name": "digitous-js-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "projet.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerfic/digitous-js-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nerfic/digitous-js-project/issues"
+  },
+  "homepage": "https://github.com/nerfic/digitous-js-project#readme",
+  "dependencies": {
+    "prompt": "^1.1.0"
+  }
+}
