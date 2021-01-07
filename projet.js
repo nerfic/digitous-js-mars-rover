@@ -7,16 +7,18 @@
 // Afficher la direction dans la grille
 
 var prompt = require("prompt");
+var colors = require("colors/safe");
 
 var rover = {
     direction: "N",
     x: 0,
     y: 0,
-    travelLog: [],
-    pointer: "↑"
 }
+
+var pointerDirection = colors.white.bold("↑");
+
 var grid = [
-    [rover.pointer, " ", " ", " ", " ", " ", " ", " ", " ", " "],
+    [pointerDirection, " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -28,19 +30,32 @@ var grid = [
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
 ];
 
+// function pointer(direction) {
+
+//     if (rover.direction === "N") {
+//         pointerDirection = "↑";
+//     } else if (rover.direction === "E") {
+//         pointerDirection = "→";
+//     } else if (rover.direction === "S") {
+//         pointerDirection = "↓";
+//     } else if (rover.direction === "W") {
+//         pointerDirection = "←"
+//     }
+// }
+
 function turnLeft(rover) {
     if (rover.direction === "N") {
         rover.direction = "W"
-        rover.pointer = "←"
+        pointerDirection = colors.white.bold("←");
     } else if (rover.direction === "W") {
         rover.direction = "S"
-        console.log(rover.direction)
+        pointerDirection = colors.white.bold("↓");
     } else if (rover.direction === "S") {
         rover.direction = "E"
-        console.log(rover.direction)
+        pointerDirection = colors.white.bold("→");
     } else if (rover.direction === "E") {
         rover.direction = "N"
-        console.log(rover.direction)
+        pointerDirection = colors.white.bold("↑");
     } else {
         console.log("Erreur: ce n'est pas une direction valide")
     }
@@ -49,16 +64,16 @@ function turnLeft(rover) {
 function turnRight(rover) {
     if (rover.direction === "N") {
         rover.direction = "E"
-        console.log("Nouvelle direction", rover.direction)
+        pointerDirection = colors.white.bold("→");
     } else if (rover.direction === "E") {
         rover.direction = "S"
-        console.log("Nouvelle direction", rover.direction)
+        pointerDirection = colors.white.bold("↓");
     } else if (rover.direction === "S") {
         rover.direction = "W"
-        console.log("Nouvelle direction", rover.direction)
+        pointerDirection = colors.white.bold("←");
     } else if (rover.direction === "W") {
         rover.direction = "N"
-        console.log("Nouvelle direction", rover.direction)
+        pointerDirection = colors.white.bold("↑");
     } else {
         console.log("Erreur: ce n'est pas une direction valide")
     }
@@ -71,34 +86,38 @@ function moveForward(rover) {
     if (rover.direction === "N") {
         rover.y -= 1;
         if (rover.y < 0 || rover.y > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
         } else {
             grid[rover.y][rover.x] = grid[lastY][lastX];
             grid[lastY][lastX] = " ";
+            grid[rover.y][rover.x] = pointerDirection;
         }
     } else if (rover.direction === "E") {
         rover.x += 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.x < 0 || rover.x > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
+            grid[rover.y][rover.x] = pointerDirection;
         }
     } else if (rover.direction === "S") {
         rover.y += 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.y < 0 || rover.y > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
+            grid[rover.y][rover.x] = pointerDirection;
         }
     } else if (rover.direction === "W") {
         rover.x -= 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.x < 0 || rover.x > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
+            grid[rover.y][rover.x] = pointerDirection;
         }
     }
 }
@@ -109,35 +128,35 @@ function moveBackward(rover) {
 
     if (rover.direction === "N") {
         rover.y += 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.y < 0 || rover.y > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
         }
     } else if (rover.direction === "E") {
         rover.x -= 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.x < 0 || rover.x > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
         }
     } else if (rover.direction === "S") {
         rover.y -= 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.y < 0 || rover.y > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
         }
     } else if (rover.direction === "W") {
         rover.x += 1;
-        grid[rover.y][rover.x] = grid[lastY][lastX];
-        grid[lastY][lastX] = " ";
-
         if (rover.x < 0 || rover.x > 9) {
-            console.log("Erreur nous sortons de la grille")
+            console.log(colors.brightRed("Erreur nous sortons de la grille"))
+        } else {
+            grid[rover.y][rover.x] = grid[lastY][lastX];
+            grid[lastY][lastX] = " ";
         }
     }
 }
@@ -146,38 +165,46 @@ function roverGame() {
 
     var playerResult = grid[rover.x][rover.y];
 
+
+    prompt.message = colors.cyan("Envoyez une commande au rover");
+    console.log(colors.brightGreen("Voici les commandes:"))
+    console.log(colors.brightYellow("F pour avancer"))
+    console.log(colors.brightYellow("B pour reculer"))
+    console.log(colors.brightYellow("R pour regarder à droite"))
+    console.log(colors.brightYellow("L pour regarder à gauche"))
+
     prompt.start();
     prompt.get(['moove'], function (err, result) {
 
         playerResult = result.moove;
 
         var i = 0;
-
+        console.log(colors.bgGrey.brightWhite(`Log n°0 (position initiale) =`, rover))
         while (i < playerResult.length) {
             if (playerResult.charAt(i).toUpperCase() === "L") {
                 turnLeft(rover);
-                console.log(rover)
+                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (regarde à gauche) =`, rover))
             } else if (playerResult.charAt(i).toUpperCase() === "R") {
                 turnRight(rover);
-                console.log(rover)
+                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (regarde à droite) =`, rover))
             } else if (playerResult.charAt(i).toUpperCase() === "F") {
                 moveForward(rover);
-                console.log(rover)
+                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (avance) =`, rover))
             }
             else if (playerResult.charAt(i).toUpperCase() === "B") {
                 moveBackward(rover);
-                console.log(rover)
+                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (recule) =`, rover))
             }
             else if (playerResult.charAt(i) === " ") {
                 // vide ?
             }
             else {
-                console.log(`Erreur le caractere ${playerResult.charAt(i)} n'est pas pris en charge !`)
-                break
+                console.log(colors.brightRed(`Erreur le caractere ${playerResult.charAt(i)} n'est pas pris en charge !`))
+                break;
             }
             i++;
         }
-        console.log(grid.join('\n'))
+        console.log(colors.bgBrightMagenta.magenta(grid.join('\n')))
     });
 }
 
