@@ -47,15 +47,19 @@ function turnLeft(rover) {
     if (rover.direction === "N") {
         rover.direction = "W"
         pointerDirection = colors.white.bold("←");
+        grid[rover.y][rover.x] = pointerDirection;
     } else if (rover.direction === "W") {
         rover.direction = "S"
         pointerDirection = colors.white.bold("↓");
+        grid[rover.y][rover.x] = pointerDirection;
     } else if (rover.direction === "S") {
         rover.direction = "E"
         pointerDirection = colors.white.bold("→");
+        grid[rover.y][rover.x] = pointerDirection;
     } else if (rover.direction === "E") {
         rover.direction = "N"
         pointerDirection = colors.white.bold("↑");
+        grid[rover.y][rover.x] = pointerDirection;
     } else {
         console.log("Erreur: ce n'est pas une direction valide")
     }
@@ -65,15 +69,19 @@ function turnRight(rover) {
     if (rover.direction === "N") {
         rover.direction = "E"
         pointerDirection = colors.white.bold("→");
+        grid[rover.y][rover.x] = pointerDirection;
     } else if (rover.direction === "E") {
         rover.direction = "S"
         pointerDirection = colors.white.bold("↓");
+        grid[rover.y][rover.x] = pointerDirection;
     } else if (rover.direction === "S") {
         rover.direction = "W"
         pointerDirection = colors.white.bold("←");
+        grid[rover.y][rover.x] = pointerDirection;
     } else if (rover.direction === "W") {
         rover.direction = "N"
         pointerDirection = colors.white.bold("↑");
+        grid[rover.y][rover.x] = pointerDirection;
     } else {
         console.log("Erreur: ce n'est pas une direction valide")
     }
@@ -196,7 +204,6 @@ function roverGame() {
                 console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (recule) =`, rover))
             }
             else if (playerResult.charAt(i) === " ") {
-                // vide ?
             }
             else {
                 console.log(colors.brightRed(`Erreur le caractere ${playerResult.charAt(i)} n'est pas pris en charge !`))
