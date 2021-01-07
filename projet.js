@@ -185,32 +185,76 @@ function roverGame() {
     prompt.get(['moove'], function (err, result) {
 
         playerResult = result.moove;
-
+        var logNumber = 1
         var i = 0;
         console.log(colors.bgGrey.brightWhite(`Log n°0 (position initiale) =`, rover))
         while (i < playerResult.length) {
             if (playerResult.charAt(i).toUpperCase() === "L") {
-                turnLeft(rover);
-                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (regarde à gauche) =`, rover))
+                if (parseInt(playerResult.charAt(i + 1)) > 0 && parseInt(playerResult.charAt(i + 1)) <= 9) {
+                    var j = 0
+                    while (j < parseInt(playerResult.charAt(i + 1))) {
+                        turnLeft(rover)
+                        console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (regarde à gauche) =`, rover))
+                        logNumber++
+                        j++
+                    }
+                } else {
+                    turnLeft(rover);
+                    console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (regarde à gauche) =`, rover))
+                    logNumber++
+                }
             } else if (playerResult.charAt(i).toUpperCase() === "R") {
-                turnRight(rover);
-                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (regarde à droite) =`, rover))
+                if (parseInt(playerResult.charAt(i + 1)) > 0 && parseInt(playerResult.charAt(i + 1)) <= 9) {
+                    var j = 0
+                    while (j < parseInt(playerResult.charAt(i + 1))) {
+                        turnRight(rover)
+                        console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (regarde à droite) =`, rover))
+                        logNumber++
+                        j++
+                    }
+                } else {
+                    turnRight(rover);
+                    console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (regarde à droite) =`, rover))
+                    logNumber++
+                }
             } else if (playerResult.charAt(i).toUpperCase() === "F") {
-                moveForward(rover);
-                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (avance) =`, rover))
-            }
-            else if (playerResult.charAt(i).toUpperCase() === "B") {
-                moveBackward(rover);
-                console.log(colors.bgGrey.brightWhite(`Log n°${i + 1} (recule) =`, rover))
-            }
-            else if (playerResult.charAt(i) === " ") {
-            }
-            else {
+                if (parseInt(playerResult.charAt(i + 1)) > 0 && parseInt(playerResult.charAt(i + 1)) <= 9) {
+                    var j = 0
+                    while (j < parseInt(playerResult.charAt(i + 1))) {
+                        moveForward(rover)
+                        console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (avance) =`, rover))
+                        logNumber++
+                        j++
+                    }
+                } else {
+                    moveForward(rover);
+                    console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (avance) =`, rover))
+                    logNumber++
+                }
+            } else if (playerResult.charAt(i).toUpperCase() === "B") {
+                if (parseInt(playerResult.charAt(i + 1)) > 0 && parseInt(playerResult.charAt(i + 1)) <= 9) {
+                    var j = 0
+                    while (j < parseInt(playerResult.charAt(i + 1))) {
+                        moveBackward(rover)
+                        console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (recule) =`, rover))
+                        logNumber++
+                        j++
+                    }
+                } else {
+                    moveBackward(rover);
+                    console.log(colors.bgGrey.brightWhite(`Log n°${logNumber} (recule) =`, rover))
+                    logNumber++
+                }
+            } else if (playerResult.charAt(i) === " ") {
+            } else if (playerResult.charAt(i) > 0 && playerResult.charAt(i) < 10) {
+
+            } else {
                 console.log(colors.brightRed(`Erreur le caractere ${playerResult.charAt(i)} n'est pas pris en charge !`))
-                break;
+                break
             }
             i++;
         }
+        console.log("\n")
         console.log(colors.bgBrightMagenta.magenta(grid.join('\n')))
     });
 }
