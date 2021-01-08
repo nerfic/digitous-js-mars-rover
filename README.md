@@ -17,3 +17,5 @@ Nous avons rajouté à se projets quelques bonus personnelles :
 1) Affichage des commandes
 2) Ajout de couleurs
 3) Possible de lui passer un nombre en commande pour répéter une action x fois (ex: rf2 => regarde à droite puis avance 2 fois)
+
+![rover](https://github.com/nerfic/digitous-js-project/tree/main/img/rover.gif) 
