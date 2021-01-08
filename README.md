@@ -1,6 +1,6 @@
 # Mars Rover Projet
 
-Il s'agit du dernier projet du programme Konexio en Javascript. A partir d'un tableau en 2D nous devons déplacer un robot (représenter par une flèche) dans celui-ci. Projet réalisé en binôme avec 
+Il s'agit du dernier projet du programme Konexio en Javascript. Le but est déplacer un robot nommée rover (représenté par une flèche) dans un tableau 2D. Projet réalisé en binôme avec https://github.com/Nicolas-Gallego.
 
 Voici les différentes fonctions qu'on devait réaliser :
 
