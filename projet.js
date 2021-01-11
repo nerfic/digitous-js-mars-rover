@@ -1,11 +1,3 @@
-// ←
-// ↓
-// ↑
-// →
-// Pblm de hors zone
-// Rajouter le cas d'erreur pour un espace dans le prompt ????
-// Afficher la direction dans la grille
-
 var prompt = require("prompt");
 var colors = require("colors/safe");
 
@@ -29,19 +21,6 @@ var grid = [
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
     [" ", " ", " ", " ", " ", " ", " ", " ", " ", " "]
 ];
-
-// function pointer(direction) {
-
-//     if (rover.direction === "N") {
-//         pointerDirection = "↑";
-//     } else if (rover.direction === "E") {
-//         pointerDirection = "→";
-//     } else if (rover.direction === "S") {
-//         pointerDirection = "↓";
-//     } else if (rover.direction === "W") {
-//         pointerDirection = "←"
-//     }
-// }
 
 function turnLeft(rover) {
     if (rover.direction === "N") {
@@ -180,6 +159,7 @@ function roverGame() {
     console.log(colors.brightYellow("B pour reculer"))
     console.log(colors.brightYellow("R pour regarder à droite"))
     console.log(colors.brightYellow("L pour regarder à gauche"))
+    console.log(colors.bgBrightMagenta.magenta(grid.join('\n')))
 
     prompt.start();
     prompt.get(['moove'], function (err, result) {
@@ -247,7 +227,6 @@ function roverGame() {
                 }
             } else if (playerResult.charAt(i) === " ") {
             } else if (playerResult.charAt(i) > 0 && playerResult.charAt(i) < 10) {
-
             } else {
                 console.log(colors.brightRed(`Erreur le caractere ${playerResult.charAt(i)} n'est pas pris en charge !`))
                 break
@@ -260,15 +239,3 @@ function roverGame() {
 }
 
 roverGame()
-
-
-// newposition = position ancienne
-// poisition ancienne = ' '
-
-// grid[0][1] = grid[0][0]
-// grid[0][0] = ' '
-// console.log("Position suivante\n", grid.join('\n'))
-
-// grid[1][1] = grid[0][1]
-// grid[0][1] = ' '
-// console.log("Position suivante\n", grid.join('\n'))
